@@ -17,7 +17,8 @@ function App() {
     };
 
     fetchPokemons();
-  }, [setPokemons]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="App">
