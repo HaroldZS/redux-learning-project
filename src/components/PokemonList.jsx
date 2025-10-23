@@ -7,7 +7,7 @@ const PokemonList = ({ pokemons = Array(10).fill("") }) => {
   return (
     <div className="PokemonList">
       {pokemons.map((pokemon, index) => {
-        return <PokemonCard name={pokemon.name} key={index} />;
+        return <PokemonCard name={pokemon.name} url={pokemon.url} key={index} />;
       })}
     </div>
   );
