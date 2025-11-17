@@ -1,16 +1,28 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { getPokemonsWithDetails } from '../actions';
+import { getPokemonsWithDetails, setLoading } from '../actions';
+import { getPokemon } from '../api';
+import { useEffect } from 'react';
 
 export const usePokemons = () => {
   const pokemons = useSelector((state) => state.pokemons);
+  const loading = useSelector((state) => state.loading);
   const dispatch = useDispatch();
 
-  const handleSetPokemons = (pokemonsData) => {
-    dispatch(getPokemonsWithDetails(pokemonsData));
+  const fetchPokemons = async () => {
+    dispatch(setLoading(true));
+    const pokemonsRes = await getPokemon();
+    dispatch(getPokemonsWithDetails(pokemonsRes));
+    dispatch(setLoading(false));
   };
+
+  useEffect(() => {
+    fetchPokemons();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return {
     pokemons,
-    setPokemons: handleSetPokemons,
+    loading,
+    fetchPokemons,
   };
 };
