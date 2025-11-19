@@ -4,9 +4,12 @@ import PokemonList from "./components/PokemonList";
 import logo from "./statics/logo.svg";
 import "./App.css";
 import { usePokemons } from "./hooks/usePokemons";
+import { useSelector } from "react-redux";
+import { selectFilteredPokemons } from "./slices/dataSlice";
 
 function App() {
-  const { pokemons, loading } = usePokemons();
+  const { loading } = usePokemons();
+  const filteredPokemons = useSelector(selectFilteredPokemons);
 
   return (
     <div className="App">
@@ -21,7 +24,7 @@ function App() {
           <Spin spinning size="large" />
         </Col>
       ) : (
-        <PokemonList pokemons={pokemons} />
+        <PokemonList pokemons={filteredPokemons} />
       )}
     </div>
   );
